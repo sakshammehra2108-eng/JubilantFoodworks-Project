@@ -31,11 +31,11 @@
 [data-theme="light"] {
     --bg-canvas: #F8FAFC;
     --bg-card: #FFFFFF;
-    --surface-glass: rgba(255, 255, 255, 0.85);
+    --surface-glass: rgba(255, 255, 255, 0.76);
     --surface-solid: #FFFFFF;
     --surface-control: #F1F5F9;
     --surface-hover: rgba(0, 0, 0, 0.03);
-    --border-subtle: rgba(0, 0, 0, 0.1);
+    --border-subtle: rgba(0, 0, 0, 0.08);
     --border-hover: rgba(0, 160, 230, 0.45);
     --border-active: #0284C7;
     --capsule-bg: #E2E8F0;
@@ -48,8 +48,21 @@
     --text-secondary: #334155;
     --text-muted: #64748B;
     --dot-color: rgba(0, 0, 0, 0.07);
-    --shadow-card: 0 8px 30px rgba(0, 0, 0, 0.06);
+    --shadow-card: 0 8px 30px rgba(0, 0, 0, 0.05);
     --shadow-glow-cyan: 0 0 16px rgba(0, 160, 230, 0.2);
+    color: #0F172A !important;
+}
+
+[data-theme="light"] #theme-wrapper,
+[data-theme="light"] .bento-card,
+[data-theme="light"] .card,
+[data-theme="light"] .header-container {
+    color: #0F172A !important;
+}
+
+[data-theme="light"] .text-muted,
+[data-theme="light"] .kpi-header-label {
+    color: #64748B !important;
 }
 
 * {
@@ -172,17 +185,25 @@ body {
     display: flex !important;
     flex-direction: column !important;
     justify-content: space-between !important;
-    /* animation removed for targeted tab transitions */
+    position: relative !important;
+    animation: springPopUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) both !important;
 }
 
-.kpi-bento {
-    position: relative !important;
-}
+.kpi-bento:nth-child(1) { animation-delay: 0.04s !important; }
+.kpi-bento:nth-child(2) { animation-delay: 0.08s !important; }
+.kpi-bento:nth-child(3) { animation-delay: 0.12s !important; }
+.kpi-bento:nth-child(4) { animation-delay: 0.16s !important; }
+.kpi-bento:nth-child(5) { animation-delay: 0.20s !important; }
+.kpi-bento:nth-child(6) { animation-delay: 0.24s !important; }
 
 .kpi-bento:hover {
-    transform: none !important; /* Disable raw outer translateY */
-    border-color: rgba(0, 240, 255, 0.4) !important;
-    box-shadow: 0 12px 32px rgba(0, 240, 255, 0.12) !important;
+    transform: translateY(-3px) !important;
+    border-color: var(--border-hover) !important;
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.25), 0 0 16px rgba(0, 240, 255, 0.14) !important;
+}
+
+[data-theme="light"] .kpi-bento:hover {
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08), 0 0 16px rgba(0, 160, 230, 0.15) !important;
 }
 
 .kpi-header-label {
@@ -257,6 +278,83 @@ body {
 [data-theme="light"] .brand-logo-light {
     display: inline-block !important;
 }
+
+/* ==========================================================================
+   EXECUTIVE HEADER BAR (NOTHING OS 5.0 TRANSLUCENT GLASS & HIGH CONTRAST)
+   ========================================================================== */
+#header-card,
+.header-container,
+.header-tile {
+    background: rgba(18, 24, 38, 0.72) !important;
+    backdrop-filter: blur(28px) saturate(190%) !important;
+    -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
+    border: 1px solid var(--border-subtle) !important;
+    border-radius: 20px !important;
+    padding: 12px 20px !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.06) !important;
+    animation: none !important;
+    transform: none !important;
+    transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease !important;
+}
+
+[data-theme="light"] #header-card,
+[data-theme="light"] .header-container,
+[data-theme="light"] .header-tile {
+    background: rgba(255, 255, 255, 0.75) !important;
+    backdrop-filter: blur(28px) saturate(190%) !important;
+    -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05), inset 0 1px 2px rgba(255, 255, 255, 0.95) !important;
+}
+
+/* Ticker Terminal Glass Badge (Nothing OS Pill) */
+.ticker-terminal-pill,
+#ticker-pill-terminal {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 6px 14px !important;
+    border-radius: 24px !important;
+    background: rgba(255, 255, 255, 0.06) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.04) !important;
+    transition: all 0.2s ease !important;
+}
+
+[data-theme="light"] .ticker-terminal-pill,
+[data-theme="light"] #ticker-pill-terminal {
+    background: rgba(0, 0, 0, 0.04) !important;
+    border: 1px solid rgba(0, 0, 0, 0.09) !important;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.02) !important;
+}
+
+/* Pulsing Nothing Red Live Indicator Dot */
+.terminal-red-dot {
+    width: 7px !important;
+    height: 7px !important;
+    background-color: var(--nothing-red, #D71921) !important;
+    border-radius: 50% !important;
+    display: inline-block !important;
+    animation: pulseGlow 2.2s infinite ease-in-out !important;
+    box-shadow: 0 0 8px rgba(215, 25, 33, 0.6) !important;
+    flex-shrink: 0 !important;
+}
+
+/* Ticker Code Text (HIGH CONTRAST IN BOTH MODES) */
+.ticker-code-text {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace !important;
+    font-size: 0.8rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.05em !important;
+    color: #F8FAFC !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+}
+
+[data-theme="light"] .ticker-code-text {
+    color: #0F172A !important; /* Deep dark slate - completely crisp and readable in light mode */
+}
+
 
 /* ==========================================================================
    GLASSMORPHIC CAPSULE CONTROLS (HORIZONTAL FLEX TRACKS)
@@ -380,91 +478,152 @@ div[id*="theme-toggle"] .form-check-label:hover {
 }
 
 /* ==========================================================================
-   UNIFIED TAB STRIP CAPSULE TRACK (NOTHING OS 5.0 LIVE BLUR)
+   UNIFIED TAB STRIP CAPSULE TRACK (3x2 SYMMETRICAL GRID, NO SLIDER ARTIFACTS)
    ========================================================================== */
-.nav-pills {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    gap: 8px !important;
-    max-width: 100% !important;
-    overflow-x: auto !important;
-}
 
+/* Outer Capsule Track: Full width, smooth rounded capsule */
+.tab-capsule-track,
 .tab-capsule-track.segmented-pill-container,
 .segmented-pill-container:has(#executive-tabs) {
-    display: inline-flex !important;
-    flex-direction: row !important;
-    flex-wrap: wrap !important;
-    align-items: center !important;
-    justify-content: center !important;
-    background: rgba(18, 24, 38, 0.65) !important;
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    background: rgba(18, 24, 38, 0.72) !important;
     backdrop-filter: blur(24px) saturate(180%) !important;
     -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
     border: 1px solid var(--border-subtle) !important;
-    border-radius: 40px !important;
-    padding: 4px 6px !important;
+    border-radius: 18px !important;
+    padding: 6px 8px !important;
     margin-bottom: 0 !important;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.08) !important;
-    width: auto !important;
-    max-width: 100% !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.05) !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
 }
 
+[data-theme="light"] .tab-capsule-track,
 [data-theme="light"] .tab-capsule-track.segmented-pill-container,
 [data-theme="light"] .segmented-pill-container:has(#executive-tabs) {
-    background: rgba(255, 255, 255, 0.65) !important;
+    background: rgba(255, 255, 255, 0.75) !important;
     border: 1px solid rgba(0, 0, 0, 0.08) !important;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06), inset 0 1px 2px rgba(255, 255, 255, 0.8) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05), inset 0 1px 2px rgba(255, 255, 255, 0.9) !important;
 }
 
-.floating-pill-tabs {
-    display: flex !important;
-    flex-direction: row !important;
-    flex-wrap: wrap !important;
+/* 3x2 Grid: Exactly 3 tabs in first line, 3 tabs in second line */
+#executive-tabs,
+.floating-pill-tabs.nav-pills,
+.floating-pill-tabs,
+.nav-pills {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 6px 8px !important;
+    width: 100% !important;
     max-width: 100% !important;
-    overflow-x: auto !important;
     background: transparent !important;
     border: none !important;
     border-bottom: none !important;
     padding: 0 !important;
     margin: 0 !important;
-    gap: 4px !important;
-    white-space: nowrap !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
 }
 
-.floating-pill-tabs .nav-item {
+/* Each nav item spans 1 grid column */
+#executive-tabs .nav-item,
+.floating-pill-tabs .nav-item,
+.nav-pills .nav-item {
     margin: 0 !important;
     padding: 0 !important;
-    display: inline-flex !important;
+    display: flex !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
 }
 
-.floating-pill-tabs .nav-link {
+/* Tab Links / Segmented Pills */
+#executive-tabs .nav-link,
+.floating-pill-tabs .nav-link,
+.nav-pills .nav-link {
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
     color: var(--text-muted) !important;
-    font-family: 'Inter', sans-serif !important;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
     font-weight: 600 !important;
-    font-size: 0.78rem !important;
+    font-size: 0.74rem !important;
     text-transform: uppercase !important;
-    letter-spacing: 0.05em !important;
+    letter-spacing: 0.04em !important;
     border: none !important;
-    border-radius: 30px !important;
-    padding: 8px 22px !important;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    border-radius: 12px !important;
+    padding: 9px 10px !important;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
     background: transparent !important;
     white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
     cursor: pointer !important;
     user-select: none !important;
     line-height: 1.2 !important;
+    box-sizing: border-box !important;
 }
 
-.floating-pill-tabs .nav-link.active {
+/* Active Tab State */
+#executive-tabs .nav-link.active,
+.floating-pill-tabs .nav-link.active,
+.nav-pills .nav-link.active {
     color: var(--text-primary) !important;
     background: var(--capsule-active) !important;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25) !important;
-    transform: scale(1.02) !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.22) !important;
+    font-weight: 700 !important;
+    transform: none !important;
 }
 
-.floating-pill-tabs .nav-link:hover:not(.active) {
+[data-theme="light"] #executive-tabs .nav-link.active,
+[data-theme="light"] .floating-pill-tabs .nav-link.active,
+[data-theme="light"] .nav-pills .nav-link.active {
+    background: #FFFFFF !important;
+    color: #0F172A !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09) !important;
+}
+
+/* Hover State */
+#executive-tabs .nav-link:hover:not(.active),
+.floating-pill-tabs .nav-link:hover:not(.active),
+.nav-pills .nav-link:hover:not(.active) {
     color: var(--text-primary) !important;
     background: var(--surface-hover) !important;
+}
+
+/* Hide any inner empty tab-content that dbc.Tabs might auto-render */
+#executive-tabs + .tab-content,
+.tab-capsule-track .tab-content {
+    display: none !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+}
+
+/* Eliminate ANY scrollbar or blue slider artifact on the tab strip */
+.tab-capsule-track,
+.tab-capsule-track *,
+.segmented-pill-container:has(#executive-tabs),
+#executive-tabs,
+#executive-tabs * {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+}
+
+.tab-capsule-track::-webkit-scrollbar,
+.tab-capsule-track *::-webkit-scrollbar,
+.segmented-pill-container:has(#executive-tabs)::-webkit-scrollbar,
+#executive-tabs::-webkit-scrollbar,
+#executive-tabs *::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
 }
 
 /* ==========================================================================
@@ -692,839 +851,251 @@ div[id*="theme-toggle"] .form-check-label:hover {
     border-radius: 3px !important;
 }
 
-
 /* ==========================================================================
-   AG-GRID TABLE RESPONSIVENESS & CONTAINMENT
+   AG-GRID PRODUCTION GRADE STYLING: FLAWLESS ALIGNMENT & 100% CONTAINER FIT
    ========================================================================== */
-#operational-grid,
-.ag-root-wrapper,
-.ag-root-wrapper-body,
-.ag-root {
-    max-width: 100% !important;
+#fact-table {
+    width: 100% !important;
     box-sizing: border-box !important;
 }
 
-
-/* ==========================================================================
-   DROPDOWN CONTRAST, Z-INDEX & HOVER FIXES
-   ========================================================================== */
-.bento-card:has(.spatial-dropdown),
-.bento-card:has(#brand-dropdown),
-.bento-card:has(.Select),
-.bento-card:has(div[class*="-control"]) {
-    overflow: visible !important;
-    position: relative !important;
-    z-index: 1050 !important;
+.ag-theme-alpine-dark {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    border-radius: 8px !important;
+    --ag-background-color: var(--surface-solid, #0B1120) !important;
+    --ag-header-background-color: var(--capsule-active, #1E293B) !important;
+    --ag-odd-row-background-color: var(--surface-control, rgba(255, 255, 255, 0.02)) !important;
+    --ag-border-color: var(--border-subtle, rgba(255, 255, 255, 0.08)) !important;
+    --ag-row-hover-color: rgba(56, 189, 248, 0.10) !important;
+    --ag-foreground-color: var(--text-primary, #F8FAFC) !important;
+    --ag-header-foreground-color: var(--text-primary, #F8FAFC) !important;
+    --ag-font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+    --ag-font-size: 0.8rem !important;
 }
 
-.spatial-dropdown,
-.Select,
-div[class*="-container"] {
-    position: relative !important;
-    z-index: 1060 !important;
+/* Remove hamburger menu icon from header cells */
+.ag-theme-alpine-dark .ag-header-cell-menu-button {
+    display: none !important;
 }
 
-.spatial-dropdown .Select-menu-outer,
-.spatial-dropdown div[class*="-menu"],
-.Select-menu-outer,
-div[class*="-menu"] {
+/* Compact header padding */
+.ag-theme-alpine-dark .ag-header-cell {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+}
+
+.ag-theme-alpine-dark .ag-header-cell-text {
+    font-size: 0.72rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.04em !important;
+    color: #94A3B8 !important;
+    white-space: nowrap !important;
+}
+
+/* Header Alignment classes */
+.ag-theme-alpine-dark .ag-right-aligned-header .ag-header-cell-label {
+    justify-content: flex-end !important;
+}
+
+.ag-theme-alpine-dark .ag-left-aligned-header .ag-header-cell-label {
+    justify-content: flex-start !important;
+}
+
+/* Cell Styling: with proper flex alignment matching headers */
+.ag-theme-alpine-dark .ag-cell {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    font-size: 0.8rem !important;
+    display: flex !important;
+    align-items: center !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+}
+
+/* Cell Alignment classes matching header alignment */
+.ag-theme-alpine-dark .ag-right-aligned-cell {
+    justify-content: flex-end !important;
+    text-align: right !important;
+    font-variant-numeric: tabular-nums !important;
+}
+
+.ag-theme-alpine-dark .ag-left-aligned-cell {
+    justify-content: flex-start !important;
+    text-align: left !important;
+}
+
+/* Seamless Tab Switching: ensure hidden tabs maintain layout geometry */
+.tab-content[style*="display: none"] {
+    display: block !important;
     position: absolute !important;
-    z-index: 99999 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    height: 0 !important;
+    overflow: hidden !important;
 }
 
-/* Light mode dropdown styling: Dark charcoal (#0F172A) over pure white (#FFFFFF) */
-[data-theme="light"] .spatial-dropdown .Select-control,
-[data-theme="light"] .spatial-dropdown div[class*="-control"],
-[data-theme="light"] .Select-control,
-[data-theme="light"] div[class*="-control"] {
-    background-color: #FFFFFF !important;
-    background: #FFFFFF !important;
-    border: 1px solid rgba(0, 0, 0, 0.16) !important;
-    color: #0F172A !important;
-}
-
-[data-theme="light"] .spatial-dropdown .Select-value,
-[data-theme="light"] .spatial-dropdown .Select-value-label,
-[data-theme="light"] .spatial-dropdown div[class*="-singleValue"],
-[data-theme="light"] .spatial-dropdown div[class*="-SingleValue"],
-[data-theme="light"] .spatial-dropdown div[class*="-placeholder"],
-[data-theme="light"] .Select-value,
-[data-theme="light"] .Select-value-label,
-[data-theme="light"] div[class*="-singleValue"],
-[data-theme="light"] div[class*="-SingleValue"],
-[data-theme="light"] div[class*="-placeholder"] {
-    color: #0F172A !important;
-}
-
-[data-theme="light"] .spatial-dropdown div[class*="-input"] input,
-[data-theme="light"] .Select-input input {
-    color: #0F172A !important;
-}
-
-[data-theme="light"] .spatial-dropdown .Select-menu-outer,
-[data-theme="light"] .spatial-dropdown div[class*="-menu"],
-[data-theme="light"] .Select-menu-outer,
-[data-theme="light"] div[class*="-menu"] {
-    background: #FFFFFF !important;
-    background-color: #FFFFFF !important;
-    border: 1px solid rgba(0, 0, 0, 0.12) !important;
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.14) !important;
-    position: absolute !important;
-    z-index: 99999 !important;
-}
-
-[data-theme="light"] .spatial-dropdown .Select-menu,
-[data-theme="light"] .spatial-dropdown div[class*="-MenuList"],
-[data-theme="light"] .spatial-dropdown div[class*="-menuList"],
-[data-theme="light"] .Select-menu,
-[data-theme="light"] div[class*="-MenuList"],
-[data-theme="light"] div[class*="-menuList"] {
-    background: #FFFFFF !important;
-    background-color: #FFFFFF !important;
-}
-
-[data-theme="light"] .spatial-dropdown .Select-option,
-[data-theme="light"] .spatial-dropdown div[class*="-option"],
-[data-theme="light"] .Select-option,
-[data-theme="light"] div[class*="-option"] {
-    background: #FFFFFF !important;
-    background-color: #FFFFFF !important;
-    color: #0F172A !important;
-}
-
-/* Subtle grey hover fills (#F1F5F9) instead of purple/blue */
-[data-theme="light"] .spatial-dropdown .Select-option:hover,
-[data-theme="light"] .spatial-dropdown div[class*="-option"]:hover,
-[data-theme="light"] .spatial-dropdown .Select-option.is-focused,
-[data-theme="light"] .spatial-dropdown div[class*="-option"][class*="focused"],
-[data-theme="light"] .spatial-dropdown div[class*="-option"]--is-focused,
-[data-theme="light"] .Select-option:hover,
-[data-theme="light"] div[class*="-option"]:hover,
-[data-theme="light"] .Select-option.is-focused,
-[data-theme="light"] div[class*="-option"][class*="focused"],
-[data-theme="light"] div[class*="-option"]--is-focused {
-    background: #F1F5F9 !important;
-    background-color: #F1F5F9 !important;
-    color: #0F172A !important;
-}
-
-/* Selected option state in Light Mode */
-[data-theme="light"] .spatial-dropdown .Select-option.is-selected,
-[data-theme="light"] .spatial-dropdown div[class*="-option"][class*="selected"],
-[data-theme="light"] .spatial-dropdown div[class*="-option"]--is-selected,
-[data-theme="light"] .Select-option.is-selected,
-[data-theme="light"] div[class*="-option"][class*="selected"],
-[data-theme="light"] div[class*="-option"]--is-selected {
-    background: #E2E8F0 !important;
-    background-color: #E2E8F0 !important;
-    color: #0F172A !important;
-    font-weight: 600 !important;
-}
-
-/* ==========================================================================
-   HEADING & TABLE TITLE CONTRAST FIX (PREVENTS INVISIBLE WHITE TEXT)
-   ========================================================================== */
-h1, h2, h3, h4, h5, h6,
-.h1, .h2, .h3, .h4, .h5, .h6,
-.bento-card h1, .bento-card h2, .bento-card h3, .bento-card h4, .bento-card h5, .bento-card h6,
-.card h1, .card h2, .card h3, .card h4, .card h5, .card h6 {
-    color: var(--text-primary) !important;
-}
-
-[data-theme="light"] h1,
-[data-theme="light"] h2,
-[data-theme="light"] h3,
-[data-theme="light"] h4,
-[data-theme="light"] h5,
-[data-theme="light"] h6,
-[data-theme="light"] .h1,
-[data-theme="light"] .h2,
-[data-theme="light"] .h3,
-[data-theme="light"] .h4,
-[data-theme="light"] .h5,
-[data-theme="light"] .h6,
-[data-theme="light"] .bento-card h1,
-[data-theme="light"] .bento-card h2,
-[data-theme="light"] .bento-card h3,
-[data-theme="light"] .bento-card h4,
-[data-theme="light"] .bento-card h5,
-[data-theme="light"] .bento-card h6,
-[data-theme="light"] .card h1,
-[data-theme="light"] .card h2,
-[data-theme="light"] .card h3,
-[data-theme="light"] .card h4,
-[data-theme="light"] .card h5,
-[data-theme="light"] .card h6 {
-    color: #0F172A !important;
-}
-
-[data-theme="light"] .text-muted {
-    color: #64748B !important;
-}
-
-/* Light Mode AG-Grid variable definitions */
+/* Light Mode Overrides */
 [data-theme="light"] .ag-theme-alpine-dark {
     --ag-background-color: #FFFFFF !important;
-    --ag-header-background-color: #F8FAFC !important;
-    --ag-odd-row-background-color: #F1F5F9 !important;
+    --ag-header-background-color: #F1F5F9 !important;
+    --ag-odd-row-background-color: #F8FAFC !important;
     --ag-border-color: rgba(0, 0, 0, 0.08) !important;
     --ag-row-hover-color: rgba(2, 132, 199, 0.08) !important;
     --ag-foreground-color: #0F172A !important;
+    --ag-header-foreground-color: #0F172A !important;
 }
 
 [data-theme="light"] .ag-theme-alpine-dark .ag-header-cell-text {
-    color: #334155 !important;
-    font-weight: 700 !important;
-}
-
-[data-theme="light"] .ag-theme-alpine-dark .ag-cell {
-    color: #0F172A !important;
-}
-
-
-/* ==========================================================================
-   DROPDOWN INPUT CONTRAST FIX (EXACT SPECIFICATION)
-   ========================================================================== */
-/* Light Mode Dropdown Input */
-.Select-control, .form-select, select,
-.spatial-dropdown .Select-control,
-.spatial-dropdown div[class*="-control"] {
-    background-color: rgba(255, 255, 255, 0.8) !important;
-    color: #0F172A !important;
-    border: 1px solid rgba(15, 23, 42, 0.15) !important;
-    border-radius: 20px !important;
-    font-weight: 600 !important;
-}
-.Select-placeholder, .Select-value-label,
-.spatial-dropdown .Select-placeholder,
-.spatial-dropdown .Select-value-label,
-.spatial-dropdown div[class*="-singleValue"],
-.spatial-dropdown div[class*="-SingleValue"],
-.spatial-dropdown div[class*="-placeholder"] {
-    color: #0F172A !important;
-    font-weight: 600 !important;
-}
-
-/* Light Theme Explicit Target */
-[data-theme="light"] .Select-control, 
-[data-theme="light"] .form-select, 
-[data-theme="light"] select,
-[data-theme="light"] .spatial-dropdown .Select-control,
-[data-theme="light"] .spatial-dropdown div[class*="-control"] {
-    background-color: rgba(255, 255, 255, 0.8) !important;
-    color: #0F172A !important;
-    border: 1px solid rgba(15, 23, 42, 0.15) !important;
-    border-radius: 20px !important;
-    font-weight: 600 !important;
-}
-[data-theme="light"] .Select-placeholder, 
-[data-theme="light"] .Select-value-label,
-[data-theme="light"] .spatial-dropdown .Select-placeholder,
-[data-theme="light"] .spatial-dropdown .Select-value-label,
-[data-theme="light"] .spatial-dropdown div[class*="-singleValue"],
-[data-theme="light"] .spatial-dropdown div[class*="-SingleValue"],
-[data-theme="light"] .spatial-dropdown div[class*="-placeholder"] {
-    color: #0F172A !important;
-    font-weight: 600 !important;
-}
-
-/* Dark Mode Dropdown Input */
-[data-theme="dark"] .Select-control, 
-[data-theme="dark"] .form-select, 
-[data-theme="dark"] select,
-[data-theme="dark"] .spatial-dropdown .Select-control,
-[data-theme="dark"] .spatial-dropdown div[class*="-control"] {
-    background-color: rgba(18, 24, 38, 0.75) !important;
-    color: #F8FAFC !important;
-    border: 1px solid rgba(255, 255, 255, 0.12) !important;
-    border-radius: 20px !important;
-    font-weight: 600 !important;
-}
-[data-theme="dark"] .Select-placeholder, 
-[data-theme="dark"] .Select-value-label,
-[data-theme="dark"] .spatial-dropdown .Select-placeholder,
-[data-theme="dark"] .spatial-dropdown .Select-value-label,
-[data-theme="dark"] .spatial-dropdown div[class*="-singleValue"],
-[data-theme="dark"] .spatial-dropdown div[class*="-SingleValue"],
-[data-theme="dark"] .spatial-dropdown div[class*="-placeholder"] {
-    color: #F8FAFC !important;
-    font-weight: 600 !important;
-}
-
-
-/* ==========================================================================
-   EXPLICIT SELECT BOX TEXT FIX & HIGH CONTRAST (USER SPECIFICATION)
-   ========================================================================== */
-/* Select Box Text Fix */
-.form-select, select, option {
-    color: #0F172A !important;
-    background-color: #FFFFFF !important;
-    font-weight: 600 !important;
-    opacity: 1 !important;
-}
-
-/* Dark Theme Overrides */
-[data-theme="dark"] .form-select, 
-[data-theme="dark"] select {
-    color: #F8FAFC !important;
-    background-color: rgba(18, 24, 38, 0.9) !important;
-    border: 1px solid rgba(255, 255, 255, 0.15) !important;
-}
-
-[data-theme="dark"] option {
-    color: #F8FAFC !important;
-    background-color: #0A0D14 !important;
-}
-
-/* Also support dcc.Dropdown if present */
-.Select-control,
-.spatial-dropdown .Select-control,
-.spatial-dropdown div[class*="-control"] {
-    color: #0F172A !important;
-    background-color: #FFFFFF !important;
-    border: 1px solid rgba(15, 23, 42, 0.15) !important;
-    font-weight: 600 !important;
-    opacity: 1 !important;
-}
-
-.Select-placeholder,
-.Select-value-label,
-.spatial-dropdown .Select-placeholder,
-.spatial-dropdown .Select-value-label,
-.spatial-dropdown div[class*="-singleValue"],
-.spatial-dropdown div[class*="-SingleValue"] {
-    color: #0F172A !important;
-    font-weight: 600 !important;
-    opacity: 1 !important;
-}
-
-[data-theme="dark"] .Select-control,
-[data-theme="dark"] .spatial-dropdown .Select-control,
-[data-theme="dark"] .spatial-dropdown div[class*="-control"] {
-    color: #F8FAFC !important;
-    background-color: rgba(18, 24, 38, 0.9) !important;
-    border: 1px solid rgba(255, 255, 255, 0.15) !important;
-}
-
-[data-theme="dark"] .Select-placeholder,
-[data-theme="dark"] .Select-value-label,
-[data-theme="dark"] .spatial-dropdown .Select-placeholder,
-[data-theme="dark"] .spatial-dropdown .Select-value-label,
-[data-theme="dark"] .spatial-dropdown div[class*="-singleValue"],
-[data-theme="dark"] .spatial-dropdown div[class*="-SingleValue"] {
-    color: #F8FAFC !important;
-    font-weight: 600 !important;
-    opacity: 1 !important;
-}
-
-
-/* ==========================================================================
-   NSE/BSE TICKER PILL (NOTHING OS TERMINAL AESTHETIC)
-   ========================================================================== */
-.ticker-terminal-pill {
-    display: inline-flex !important;
-    align-items: center !important;
-    gap: 8px !important;
-    background: rgba(255, 255, 255, 0.08) !important;
-    border: 1px solid rgba(255, 255, 255, 0.15) !important;
-    border-radius: 20px !important;
-    padding: 4px 12px !important;
-    backdrop-filter: blur(12px) !important;
-    -webkit-backdrop-filter: blur(12px) !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
-    transition: all 0.2s ease !important;
-}
-
-[data-theme="light"] .ticker-terminal-pill {
-    background: rgba(15, 23, 42, 0.06) !important;
-    border: 1px solid rgba(15, 23, 42, 0.14) !important;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05) !important;
-}
-
-.terminal-red-dot {
-    width: 7px !important;
-    height: 7px !important;
-    border-radius: 50% !important;
-    background-color: #D71921 !important;
-    box-shadow: 0 0 8px #D71921, 0 0 2px #D71921 !important;
-    display: inline-block !important;
-    animation: pulseGlow 2.2s infinite ease-in-out !important;
-}
-
-.ticker-code-text {
-    font-family: 'JetBrains Mono', monospace !important;
-    font-size: 0.72rem !important;
-    font-weight: 600 !important;
-    letter-spacing: 0.06em !important;
-    color: var(--text-primary) !important;
-    text-transform: uppercase !important;
-    line-height: 1 !important;
+    color: #475569 !important;
 }
 
 /* ==========================================================================
-   TAB STRIP CLEANUP (DESTROY BLUE SCROLLBAR & OVERFLOW-Y FIX)
+   PLOTLY GEOGRAPHIC MAP: COMPLETE HOVER TOOLTIP SUPPRESSION
    ========================================================================== */
-.nav-pills,
-.nav-tabs,
-.floating-pill-tabs,
-.tab-capsule-track,
-.segmented-pill-container {
-    overflow-y: hidden !important;
-    scrollbar-width: none !important;
-    -ms-overflow-style: none !important;
-}
-
-.nav-pills::-webkit-scrollbar,
-.nav-tabs::-webkit-scrollbar,
-.floating-pill-tabs::-webkit-scrollbar,
-.tab-capsule-track::-webkit-scrollbar,
-.segmented-pill-container::-webkit-scrollbar {
-    display: none !important;
-    width: 0 !important;
-    height: 0 !important;
-}
-
-.floating-pill-tabs {
-    display: flex !important;
-    flex-direction: row !important;
-    flex-wrap: wrap !important;
-    justify-content: center !important;
-    align-items: center !important;
-    gap: 6px !important;
-    padding: 2px !important;
-    margin: 0 !important;
-    max-width: 100% !important;
-    overflow-x: auto !important;
-    overflow-y: hidden !important;
-}
-
-.floating-pill-tabs .nav-link {
-    white-space: nowrap !important;
-    padding: 7px 15px !important;
-    font-size: 0.76rem !important;
-    font-weight: 600 !important;
-    border-radius: 20px !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.04em !important;
-}
-
-
-/* ==========================================================================
-   1. RESTORE TACTILE HOVER LIFTS WITH HIT-AREA BRIDGE (ZERO JITTER)
-   ========================================================================== */
-.bento-card, .card {
+#map-container {
     position: relative !important;
-    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease !important;
+    border-radius: 12px !important;
 }
 
-.bento-card > *, .card > *, .kpi-bento > * {
-    position: relative !important;
-    z-index: 2 !important;
-}
-
-/* Permanent hover bridge to eliminate edge-flicker vibration */
-.bento-card::after, .card::after, .kpi-bento::after {
-    content: '' !important;
-    position: absolute !important;
-    top: -6px !important;
-    bottom: -6px !important;
-    left: -6px !important;
-    right: -6px !important;
-    z-index: 1 !important;
-    pointer-events: auto !important;
-}
-
-.bento-card:hover, .card:hover, .kpi-bento:hover {
-    transform: translateY(-4px) !important;
-    border-color: rgba(0, 240, 255, 0.4) !important;
-    box-shadow: 0 12px 32px -8px rgba(0, 240, 255, 0.2) !important;
-}
-
-/* ==========================================================================
-   2. TARGETED POP-UP ENTRANCE ANIMATIONS (TAB CONTENTS ONLY)
-   ========================================================================== */
-@keyframes tabPopIn {
-    0% {
-        opacity: 0;
-        transform: scale(0.98) translateY(8px);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-    }
-}
-
-.tab-content,
-#tab-content-container > div[id^="content-tab-"] {
-    animation: tabPopIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
-}
-
-/* ==========================================================================
-   3. FIX TAB STRIP ALIGNMENT & SPACING (SINGLE SLEEK ROW)
-   ========================================================================== */
-.nav-pills,
-.floating-pill-tabs {
-    display: flex !important;
-    flex-direction: row !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    gap: 6px !important;
-    padding: 6px 12px !important;
-    background: rgba(18, 24, 38, 0.75) !important;
-    backdrop-filter: blur(20px) !important;
-    -webkit-backdrop-filter: blur(20px) !important;
-    border-radius: 40px !important;
-    border: 1px solid var(--border-subtle) !important;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35) !important;
+#chart-geographic-map {
     width: 100% !important;
-    max-width: 100% !important;
-    overflow-x: auto !important;
-    overflow-y: hidden !important;
-    scrollbar-width: none !important;
 }
 
-[data-theme="light"] .nav-pills,
-[data-theme="light"] .floating-pill-tabs {
-    background: rgba(255, 255, 255, 0.6) !important;
-    border: 1px solid rgba(0, 0, 0, 0.1) !important;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06) !important;
-}
-
-.nav-pills .nav-link,
-.floating-pill-tabs .nav-link {
-    font-size: 0.75rem !important;
-    font-weight: 700 !important;
-    letter-spacing: 0.5px !important;
-    padding: 8px 16px !important;
-    white-space: nowrap !important;
-    border-radius: 24px !important;
-    text-transform: uppercase !important;
-    color: var(--text-muted) !important;
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
-}
-
-.nav-pills .nav-link.active,
-.floating-pill-tabs .nav-link.active {
-    color: var(--text-primary) !important;
-    background: var(--capsule-active) !important;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25) !important;
-}
-
-
-/* ==========================================================================
-   INCREMENTAL VISUAL FIXES: TOP HEADER, SYMMETRICAL TAB GRID & DUAL METRIC BADGES
-   ========================================================================== */
-
-/* 1. REMOVE POP-UP ANIMATION & HOVER JITTER FROM TOP HEADER CARD ONLY */
-#header-card, .header-tile, .header-container {
-    animation: none !important;
-    transform: none !important;
-    transition: none !important;
-}
-
-#header-card:hover, .header-tile:hover, .header-container:hover {
-    transform: none !important;
-}
-
-#header-card::after, .header-tile::after, .header-container::after {
+#chart-geographic-map .hoverlayer,
+#chart-geographic-map .hovertext,
+#chart-geographic-map g.hoverlayer,
+#chart-geographic-map g.hovertext,
+#chart-geographic-map svg .hoverlayer {
     display: none !important;
-}
-
-/* 2. MAKE TAB STRIP SYMMETRICAL (SINGLE EVEN 3x2 GRID ROW) */
-.segmented-pill-container:has(#executive-tabs),
-.tab-capsule-track.segmented-pill-container {
-    width: 100% !important;
-    max-width: 100% !important;
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-    padding: 0 !important;
-}
-
-.nav-pills {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 8px 12px !important;
-    padding: 8px 16px !important;
-    background: rgba(255, 255, 255, 0.6) !important;
-    backdrop-filter: blur(20px) !important;
-    -webkit-backdrop-filter: blur(20px) !important;
-    border-radius: 30px !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
-}
-
-[data-theme="dark"] .nav-pills {
-    background: rgba(18, 24, 38, 0.6) !important;
-    border: 1px solid var(--border-subtle) !important;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3) !important;
-}
-
-.nav-pills .nav-item {
-    display: flex !important;
-    width: 100% !important;
-}
-
-.nav-pills .nav-link {
-    text-align: center !important;
-    font-size: 0.72rem !important;
-    font-weight: 700 !important;
-    letter-spacing: 0.5px !important;
-    padding: 8px 12px !important;
-    white-space: nowrap !important;
-    border-radius: 20px !important;
-    width: 100% !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    color: var(--text-muted) !important;
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
-}
-
-.nav-pills .nav-link:hover {
-    color: var(--text-primary) !important;
-    background: rgba(128, 128, 128, 0.1) !important;
-}
-
-.nav-pills .nav-link.active {
-    color: var(--text-primary) !important;
-    background: var(--capsule-active) !important;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25) !important;
-}
-
-@media (max-width: 991px) {
-    .nav-pills {
-        grid-template-columns: repeat(2, 1fr) !important;
-    }
-}
-
-@media (max-width: 576px) {
-    .nav-pills {
-        grid-template-columns: 1fr !important;
-    }
-}
-
-/* 4. DUAL METRIC MONOSPACE BADGE ITEM */
-.metric-badge-item {
-    display: inline-flex !important;
-    align-items: baseline !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
 }
 
 
-/* ==========================================================================
-   PERFECT VERTICAL ALIGNMENT & STANDARDIZED BASELINE ACROSS ALL KPI CARDS
-   ========================================================================== */
-.bento-card, .kpi-card, .kpi-bento {
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: space-between !important;
-    min-height: 180px !important;
-    height: 100% !important;
-    padding: 16px 18px !important;
-}
-
-#header-card, .header-tile, .header-container {
-    min-height: auto !important;
-    padding: 14px 20px !important;
-}
-
-.kpi-card-header {
-    min-height: 38px !important; /* Standardize title box height */
-    display: flex !important;
-    align-items: flex-start !important;
-    width: 100% !important;
-}
-
-.kpi-card-body {
-    display: flex !important;
-    align-items: center !important;
-    margin: 8px 0 !important;
-    flex-grow: 1 !important;
-    width: 100% !important;
-}
-
-.kpi-card-footer {
-    min-height: 28px !important; /* Standardize badge box height */
-    display: flex !important;
-    align-items: center !important;
-    width: 100% !important;
-}
-
-.kpi-value, .metric-number {
-    font-size: clamp(1.25rem, 1.6vw, 1.75rem) !important;
-    font-weight: 800 !important;
-    white-space: nowrap !important;
-    overflow: visible !important;
-    text-overflow: clip !important;
-    letter-spacing: -0.5px !important;
-}
-
-
-/* ==========================================================================
-   1. SLIM HORIZON BANNER BAR & BANNER CAPSULE
-   ========================================================================== */
-.horizon-banner-card, div[id*="horizon-container"] {
-    min-height: unset !important;
-    height: auto !important;
-    padding: 10px 24px !important;
-    margin-bottom: 16px !important;
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    border-radius: 30px !important;
-}
-
-#header-card, .header-tile, .header-container {
-    min-height: unset !important;
-    height: auto !important;
-}
-
-/* ==========================================================================
-   2. COMPLETE DARK MODE OVERHAUL (NOTHING OS 5.0 LIVE BLUR)
-   ========================================================================== */
-[data-theme="dark"] body {
-    background-color: #030407 !important;
-    color: #F8FAFC !important;
-}
-
-[data-theme="dark"] .bento-card, 
-[data-theme="dark"] .card,
-[data-theme="dark"] .kpi-bento {
-    background: rgba(13, 17, 23, 0.75) !important;
-    backdrop-filter: blur(24px) saturate(180%) !important;
-    -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
-}
-
-[data-theme="dark"] .bento-card:hover, 
-[data-theme="dark"] .kpi-bento:hover, 
-[data-theme="dark"] .card:hover {
-    border-color: rgba(0, 240, 255, 0.45) !important;
-    box-shadow: 0 12px 32px -8px rgba(0, 240, 255, 0.25) !important;
-}
-
-/* High-Contrast Badge Fill & Text */
-[data-theme="dark"] .badge, 
-[data-theme="dark"] div[class*="-cohort"], 
-[data-theme="dark"] div[class*="-badge"] {
-    background: rgba(0, 240, 255, 0.12) !important;
-    color: #00F0FF !important;
-    border: 1px solid rgba(0, 240, 255, 0.3) !important;
-    font-weight: 700 !important;
-}
-
-[data-theme="dark"] .pill-delta-pos {
-    background: rgba(16, 185, 129, 0.15) !important;
-    color: #10B981 !important;
-    border: 1px solid rgba(16, 185, 129, 0.35) !important;
-    font-weight: 700 !important;
-}
-
-[data-theme="dark"] .pill-delta-neg {
-    background: rgba(244, 63, 94, 0.15) !important;
-    color: #F43F5E !important;
-    border: 1px solid rgba(244, 63, 94, 0.35) !important;
-    font-weight: 700 !important;
-}
-
-[data-theme="dark"] .pill-delta-neutral {
-    background: rgba(148, 163, 184, 0.12) !important;
-    color: #94A3B8 !important;
-    border: 1px solid rgba(148, 163, 184, 0.25) !important;
-    font-weight: 600 !important;
-}
-
-
-/* ==========================================================================
-   EXECUTIVE 'SO WHAT' INSIGHT & STRATEGIC RECOMMENDATION PANEL
-   ========================================================================== */
 .executive-insight-card {
-    background: var(--surface-glass) !important;
-    backdrop-filter: blur(24px) saturate(180%) !important;
-    -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
-    border: 1px solid var(--border-subtle) !important;
-    border-radius: 16px !important;
-    min-height: unset !important;
-    height: auto !important;
-    padding: 14px 18px !important;
+    animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+    animation-delay: 0.28s !important;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
 }
 
-[data-theme="dark"] .executive-insight-card {
-    background: rgba(13, 17, 23, 0.8) !important;
-    border: 1px solid rgba(0, 240, 255, 0.22) !important;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(0, 240, 255, 0.15) !important;
+.executive-insight-card:hover {
+    transform: translateY(-2px) !important;
+    border-color: var(--border-hover) !important;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22) !important;
 }
 
+
+/* Lock down header and tab track from bounce jumps */
+#header-card,
+.tab-capsule-track,
+#executive-tabs,
+#fact-table,
+.ag-root-wrapper {
+    animation: none !important;
+}
+
+
+/* ==========================================================================
+   EXECUTIVE INSIGHT PANEL: THREE VIBRANT COLOR-CODED BOXES (LIKE BEFORE)
+   ========================================================================== */
 .insight-block {
     height: 100% !important;
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
-    border: 1px solid transparent !important;
+    border-radius: 14px !important;
+    padding: 16px 18px !important;
+    transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
 }
 
-[data-theme="dark"] .insight-finding {
-    background: rgba(0, 240, 255, 0.06) !important;
-    border: 1px solid rgba(0, 240, 255, 0.2) !important;
+.insight-card-header {
+    display: flex !important;
+    align-items: center !important;
+    margin-bottom: 10px !important;
 }
 
-[data-theme="dark"] .insight-sowhat {
-    background: rgba(245, 158, 11, 0.06) !important;
-    border: 1px solid rgba(245, 158, 11, 0.2) !important;
+.insight-badge {
+    font-size: 0.7rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.06em !important;
+    text-transform: uppercase !important;
+    padding: 5px 12px !important;
+    border-radius: 20px !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08) !important;
 }
 
-[data-theme="dark"] .insight-rec {
-    background: rgba(16, 185, 129, 0.06) !important;
-    border: 1px solid rgba(16, 185, 129, 0.22) !important;
+/* 1. BARE FINDING (CYAN / SKY BLUE ACCENT BOX) */
+.insight-finding {
+    background: linear-gradient(145deg, rgba(0, 240, 255, 0.12), rgba(0, 240, 255, 0.05)) !important;
+    border: 1px solid rgba(0, 240, 255, 0.28) !important;
+    box-shadow: 0 4px 16px rgba(0, 240, 255, 0.08), inset 0 1px 1px rgba(0, 240, 255, 0.18) !important;
 }
 
 [data-theme="light"] .insight-finding {
-    background: rgba(2, 132, 199, 0.07) !important;
-    border: 1px solid rgba(2, 132, 199, 0.18) !important;
+    background: linear-gradient(145deg, rgba(2, 132, 199, 0.12), rgba(2, 132, 199, 0.05)) !important;
+    border: 1px solid rgba(2, 132, 199, 0.28) !important;
+    box-shadow: 0 4px 16px rgba(2, 132, 199, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
+}
+
+.insight-finding:hover {
+    transform: translateY(-2px) !important;
+    border-color: rgba(0, 240, 255, 0.6) !important;
+    box-shadow: 0 8px 24px rgba(0, 240, 255, 0.18) !important;
+}
+
+[data-theme="light"] .insight-finding:hover {
+    border-color: rgba(2, 132, 199, 0.55) !important;
+    box-shadow: 0 8px 22px rgba(2, 132, 199, 0.15) !important;
+}
+
+/* 2. SO WHAT (AMBER / ORANGE ACCENT BOX) */
+.insight-sowhat {
+    background: linear-gradient(145deg, rgba(245, 158, 11, 0.12), rgba(245, 158, 11, 0.05)) !important;
+    border: 1px solid rgba(245, 158, 11, 0.28) !important;
+    box-shadow: 0 4px 16px rgba(245, 158, 11, 0.08), inset 0 1px 1px rgba(245, 158, 11, 0.18) !important;
 }
 
 [data-theme="light"] .insight-sowhat {
-    background: rgba(217, 119, 6, 0.07) !important;
-    border: 1px solid rgba(217, 119, 6, 0.18) !important;
+    background: linear-gradient(145deg, rgba(217, 119, 6, 0.12), rgba(217, 119, 6, 0.05)) !important;
+    border: 1px solid rgba(217, 119, 6, 0.28) !important;
+    box-shadow: 0 4px 16px rgba(217, 119, 6, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
+}
+
+.insight-sowhat:hover {
+    transform: translateY(-2px) !important;
+    border-color: rgba(245, 158, 11, 0.6) !important;
+    box-shadow: 0 8px 24px rgba(245, 158, 11, 0.18) !important;
+}
+
+[data-theme="light"] .insight-sowhat:hover {
+    border-color: rgba(217, 119, 6, 0.55) !important;
+    box-shadow: 0 8px 22px rgba(217, 119, 6, 0.15) !important;
+}
+
+/* 3. STRATEGIC RECOMMENDATION (EMERALD / GREEN ACCENT BOX) */
+.insight-rec {
+    background: linear-gradient(145deg, rgba(16, 185, 129, 0.12), rgba(16, 185, 129, 0.05)) !important;
+    border: 1px solid rgba(16, 185, 129, 0.28) !important;
+    box-shadow: 0 4px 16px rgba(16, 185, 129, 0.08), inset 0 1px 1px rgba(16, 185, 129, 0.18) !important;
 }
 
 [data-theme="light"] .insight-rec {
-    background: rgba(5, 150, 105, 0.07) !important;
-    border: 1px solid rgba(5, 150, 105, 0.18) !important;
+    background: linear-gradient(145deg, rgba(5, 150, 105, 0.12), rgba(5, 150, 105, 0.05)) !important;
+    border: 1px solid rgba(5, 150, 105, 0.28) !important;
+    box-shadow: 0 4px 16px rgba(5, 150, 105, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
 }
 
-.insight-block:hover {
+.insight-rec:hover {
     transform: translateY(-2px) !important;
+    border-color: rgba(16, 185, 129, 0.6) !important;
+    box-shadow: 0 8px 24px rgba(16, 185, 129, 0.18) !important;
 }
 
-
-/* ==========================================================================
-   AG-GRID FULL WIDTH FIT & SAINT BADGE ALIGNMENT
-   ========================================================================== */
-#operational-grid,
-.ag-theme-alpine-dark,
-.ag-root-wrapper,
-.ag-root-wrapper-body,
-.ag-root {
-    width: 100% !important;
-    max-width: 100% !important;
-    box-sizing: border-box !important;
-}
-
-.saint-card-header, .insight-card-header {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: flex-start !important;
-    margin-bottom: 12px !important;
-    height: 28px !important;
-}
-
-.saint-badge, .insight-badge {
-    font-size: 0.72rem !important;
-    font-weight: 800 !important;
-    letter-spacing: 0.5px !important;
-    padding: 4px 10px !important;
-    border-radius: 12px !important;
-    white-space: nowrap !important;
+[data-theme="light"] .insight-rec:hover {
+    border-color: rgba(5, 150, 105, 0.55) !important;
+    box-shadow: 0 8px 22px rgba(5, 150, 105, 0.15) !important;
 }

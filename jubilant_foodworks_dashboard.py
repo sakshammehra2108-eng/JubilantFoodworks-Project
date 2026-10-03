@@ -615,6 +615,7 @@ app.layout = html.Div(
     children=[
         # Client-side state stores
         dcc.Store(id="theme-store", data="dark"),
+        html.Div(id="resize-trigger-dummy", style={"display": "none"}),
         dcc.Store(id="horizon-range-store", data=[HIST_Q, N_Q - 1]),
 
         dbc.Container(
@@ -914,10 +915,12 @@ app.layout = html.Div(
                                             md=12,
                                             children=[
                                                 html.Div(
-                                                    className="bento-card",
+                                                    id="map-container",
+                                                    className="bento-card map-container",
+                                                    style={"overflow": "visible"},
                                                     children=[
                                                         html.H6("Geographic Penetration & Cluster Store Density", className="chart-card-title"),
-                                                        dcc.Graph(id="chart-geographic-map", config={"displayModeBar": False}),
+                                                        dcc.Graph(id="chart-geographic-map", config={"displayModeBar": False}, style={"overflow": "visible"}),
                                                     ]
                                                 )
                                             ]
@@ -1006,7 +1009,7 @@ app.layout = html.Div(
                                             children=[
                                                 html.Div([
                                                     html.H6("Operational Fact Table", className="m-0 fw-bold text-uppercase", style={"letterSpacing": "0.05em", "color": "var(--text-primary)"}),
-                                                    html.Span("Multi-threaded analytical query execution via Polars. Interactive sorting, column-filtering, and pagination.", className="text-muted small", style={"color": "var(--text-muted)"}),
+                                                    html.Span("Multi-threaded analytical query execution via Polars. Interactive sorting and column filtering.", className="text-muted small", style={"color": "var(--text-muted)"}),
                                                 ]),
                                                 dbc.Button(
                                                     "Export CSV",
@@ -1019,40 +1022,132 @@ app.layout = html.Div(
                                             ]
                                         ),
                                         dag.AgGrid(
-                                            id="operational-grid",
+                                            id="fact-table",
                                             columnDefs=[
-                                                {"headerName": "Period", "field": "quarter", "sortable": True, "filter": True, "minWidth": 110},
-                                                {"headerName": "Brand Concept", "field": "brand", "sortable": True, "filter": True, "minWidth": 130},
-                                                {"headerName": "Revenue", "field": "revenue_disp", "sortable": True, "filter": "agNumberColumnFilter", "minWidth": 110},
-                                                {"headerName": "YoY Growth", "field": "yoy_disp", "sortable": True, "filter": True, "minWidth": 110},
-                                                {"headerName": "QoQ Growth", "field": "qoq_disp", "sortable": True, "filter": True, "minWidth": 110},
-                                                {"headerName": "SSSG %", "field": "sssg_disp", "sortable": True, "filter": True, "minWidth": 110},
-                                                {"headerName": "Stores", "field": "stores", "sortable": True, "filter": "agNumberColumnFilter", "minWidth": 110},
-                                                {"headerName": "Net Adds", "field": "net_adds", "sortable": True, "filter": "agNumberColumnFilter", "minWidth": 110},
-                                                {"headerName": "Gross Margin %", "field": "gm_disp", "sortable": True, "filter": True, "minWidth": 110},
-                                                {"headerName": "EBITDA Margin %", "field": "ebitda_pct_disp", "sortable": True, "filter": True, "minWidth": 110},
-                                                {"headerName": "EBITDA Amt", "field": "ebitda_amt_disp", "sortable": True, "filter": True, "minWidth": 110},
-                                                {"headerName": "ADS per Store", "field": "ads_disp", "sortable": True, "filter": True, "minWidth": 110},
-                                                {"headerName": "Digital MAUs", "field": "digital_maus_disp", "sortable": True, "filter": True, "minWidth": 110},
+                                                {
+                                                    "headerName": "Period",
+                                                    "field": "quarter",
+                                                    "minWidth": 85,
+                                                    "flex": 0.9,
+                                                    "headerClass": "ag-left-aligned-header",
+                                                    "cellClass": "ag-left-aligned-cell fw-semibold",
+                                                },
+                                                {
+                                                    "headerName": "Brand",
+                                                    "field": "brand",
+                                                    "minWidth": 140,
+                                                    "flex": 1.5,
+                                                    "headerClass": "ag-left-aligned-header",
+                                                    "cellClass": "ag-left-aligned-cell",
+                                                },
+                                                {
+                                                    "headerName": "Revenue",
+                                                    "field": "revenue_disp",
+                                                    "minWidth": 100,
+                                                    "flex": 1.1,
+                                                    "headerClass": "ag-right-aligned-header",
+                                                    "cellClass": "ag-right-aligned-cell font-monospace",
+                                                },
+                                                {
+                                                    "headerName": "YoY",
+                                                    "field": "yoy_disp",
+                                                    "minWidth": 75,
+                                                    "flex": 0.8,
+                                                    "headerClass": "ag-right-aligned-header",
+                                                    "cellClass": "ag-right-aligned-cell font-monospace",
+                                                },
+                                                {
+                                                    "headerName": "QoQ",
+                                                    "field": "qoq_disp",
+                                                    "minWidth": 75,
+                                                    "flex": 0.8,
+                                                    "headerClass": "ag-right-aligned-header",
+                                                    "cellClass": "ag-right-aligned-cell font-monospace",
+                                                },
+                                                {
+                                                    "headerName": "SSSG",
+                                                    "field": "sssg_disp",
+                                                    "minWidth": 75,
+                                                    "flex": 0.8,
+                                                    "headerClass": "ag-right-aligned-header",
+                                                    "cellClass": "ag-right-aligned-cell font-monospace",
+                                                },
+                                                {
+                                                    "headerName": "Stores",
+                                                    "field": "stores",
+                                                    "minWidth": 80,
+                                                    "flex": 0.85,
+                                                    "headerClass": "ag-right-aligned-header",
+                                                    "cellClass": "ag-right-aligned-cell font-monospace",
+                                                },
+                                                {
+                                                    "headerName": "Net Adds",
+                                                    "field": "net_adds",
+                                                    "minWidth": 80,
+                                                    "flex": 0.85,
+                                                    "headerClass": "ag-right-aligned-header",
+                                                    "cellClass": "ag-right-aligned-cell font-monospace",
+                                                },
+                                                {
+                                                    "headerName": "GM %",
+                                                    "field": "gm_disp",
+                                                    "minWidth": 75,
+                                                    "flex": 0.8,
+                                                    "headerClass": "ag-right-aligned-header",
+                                                    "cellClass": "ag-right-aligned-cell font-monospace",
+                                                },
+                                                {
+                                                    "headerName": "EBITDA %",
+                                                    "field": "ebitda_pct_disp",
+                                                    "minWidth": 85,
+                                                    "flex": 0.9,
+                                                    "headerClass": "ag-right-aligned-header",
+                                                    "cellClass": "ag-right-aligned-cell font-monospace",
+                                                },
+                                                {
+                                                    "headerName": "EBITDA",
+                                                    "field": "ebitda_amt_disp",
+                                                    "minWidth": 100,
+                                                    "flex": 1.1,
+                                                    "headerClass": "ag-right-aligned-header",
+                                                    "cellClass": "ag-right-aligned-cell font-monospace",
+                                                },
+                                                {
+                                                    "headerName": "ADS",
+                                                    "field": "ads_disp",
+                                                    "minWidth": 90,
+                                                    "flex": 0.95,
+                                                    "headerClass": "ag-right-aligned-header",
+                                                    "cellClass": "ag-right-aligned-cell font-monospace",
+                                                },
+                                                {
+                                                    "headerName": "MAUs",
+                                                    "field": "digital_maus_disp",
+                                                    "minWidth": 85,
+                                                    "flex": 0.9,
+                                                    "headerClass": "ag-right-aligned-header",
+                                                    "cellClass": "ag-right-aligned-cell font-monospace",
+                                                },
                                             ],
+                                            columnSize="sizeToFit",
                                             defaultColDef={
                                                 "resizable": True,
                                                 "sortable": True,
                                                 "filter": True,
-                                                "minWidth": 110,
-                                                "flex": 1,
+                                                "suppressMenu": True,
                                             },
-                                            columnSize="sizeToFit",
                                             dashGridOptions={
-                                                "pagination": True,
-                                                "paginationPageSize": 16,
-                                                "animateRows": True,
-                                                "rowSelection": "single",
+                                                "domLayout": "autoHeight",
+                                                "suppressColumnVirtualisation": True,
+                                                "suppressRowVirtualisation": True,
+                                                "animateRows": False,
+                                                "headerHeight": 38,
+                                                "rowHeight": 36,
                                                 "suppressHorizontalScroll": False,
-                                                "rowBuffer": 10,
+                                                "pagination": False,
                                             },
                                             className="ag-theme-alpine-dark",
-                                            style={"width": "100%", "height": "520px"},
+                                            style={"width": "100%"},
                                         )
                                     ]
                                 )
@@ -1273,6 +1368,22 @@ def switch_executive_tabs(active_tab):
     )
 
 
+
+# Clientside Callback: Trigger browser window resize event on tab transition
+app.clientside_callback(
+    """
+    function(active_tab) {
+        setTimeout(function() {
+            window.dispatchEvent(new Event('resize'));
+        }, 60);
+        return '';
+    }
+    """,
+    Output("resize-trigger-dummy", "children"),
+    Input("executive-tabs", "active_tab"),
+    prevent_initial_call=True,
+)
+
 # Callback: Horizon Capsule Preset Router
 @app.callback(
     Output("horizon-range-store", "data"),
@@ -1290,7 +1401,7 @@ def update_horizon_range(preset_val):
 
 # Callback: AG-Grid CSV Export Trigger
 @app.callback(
-    Output("operational-grid", "exportDataAsCsv"),
+    Output("fact-table", "exportDataAsCsv"),
     Input("btn-export-grid", "n_clicks"),
     prevent_initial_call=True,
 )
@@ -1325,7 +1436,7 @@ def export_grid_csv(n_clicks):
         Output("chart-channel-economics", "figure"),
         Output("chart-commission-leakage", "figure"),
         # Tab 4 Fact Table: AG-Grid Row Data
-        Output("operational-grid", "rowData"),
+        Output("fact-table", "rowData"),
         # Tab 5 Figures: Supply Chain & Cost Breakdown
         Output("chart-cost-waterfall", "figure"),
         Output("chart-cogs-sensitivity", "figure"),
@@ -1619,6 +1730,17 @@ def update_dashboard(selected_brand: str, horizon_range: list[int], unit_mode: s
     else:
         df_geo_filtered = df_geo
 
+    # Dynamic map framing: centered with clean visual hotspot markers (no hover popup box)
+    if selected_brand == "DP Eurasia":
+        map_center = {"lat": 40.0, "lon": 36.0}
+        map_zoom = 3.6
+    elif selected_brand in ["Domino's India", "Domino's", "Popeyes", "Dunkin'", "Hong's Kitchen"]:
+        map_center = {"lat": 21.5, "lon": 79.0}
+        map_zoom = 3.4
+    else:  # Total (Consolidated)
+        map_center = {"lat": 25.0, "lon": 60.0}
+        map_zoom = 2.6
+
     map_style = "carto-darkmatter" if is_dark else "carto-positron"
     if hasattr(px, "scatter_map"):
         fig_map = px.scatter_map(
@@ -1627,12 +1749,10 @@ def update_dashboard(selected_brand: str, horizon_range: list[int], unit_mode: s
             lon="lon",
             size="stores",
             color="revenue_cr",
-            hover_name="territory",
-            hover_data=["region", "stores", "revenue_cr", "brand_focus"],
             color_continuous_scale="Viridis",
-            size_max=24,
-            zoom=3.2,
-            center={"lat": 26.0, "lon": 65.0},
+            size_max=22,
+            zoom=map_zoom,
+            center=map_center,
         )
         fig_map.update_layout(map_style=map_style)
     else:
@@ -1642,30 +1762,28 @@ def update_dashboard(selected_brand: str, horizon_range: list[int], unit_mode: s
             lon="lon",
             size="stores",
             color="revenue_cr",
-            hover_name="territory",
-            hover_data=["region", "stores", "revenue_cr", "brand_focus"],
             color_continuous_scale="Viridis",
-            size_max=24,
-            zoom=3.2,
-            center={"lat": 26.0, "lon": 65.0},
+            size_max=22,
+            zoom=map_zoom,
+            center=map_center,
         )
         fig_map.update_layout(mapbox_style=map_style)
 
     fig_map.update_layout(
         title=None,
-        hoverlabel=dict(
-            bgcolor="rgba(10, 13, 20, 0.92)",
-            bordercolor="rgba(0, 240, 255, 0.4)",
-            font=dict(color="#F8FAFC", family="'JetBrains Mono', monospace", size=12),
-        ),
+        hovermode=False,
         coloraxis_colorbar=dict(
             title=dict(text="Revenue (₹ Cr)", font=dict(color="#94A3B8", size=10)),
             tickfont=dict(color="#94A3B8", size=9),
         ),
-        margin={"r": 15, "t": 40, "l": 15, "b": 15},
+        margin=dict(l=10, r=10, t=10, b=10),
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
-        height=420,
+        height=520,
+    )
+    fig_map.update_traces(
+        hoverinfo="none",
+        hovertemplate=None,
     )
 
     # -------------------------------------------------------------------------

@@ -1,0 +1,18 @@
+territory,region,lat,lon,stores,revenue_cr,brand_focus,cluster_type
+Delhi NCR,North India,28.6139,77.209,465,420.5,Domino's India,Tier-1 Metro Hub
+Mumbai MMR,West India,19.076,72.8777,395,380.2,Domino's India,Tier-1 Metro Hub
+Bengaluru Urban,South India,12.9716,77.5946,330,315.8,Domino's India,Tech Corridor
+Hyderabad Cyberabad,South India,17.385,78.4867,240,225.4,Popeyes,Tech Corridor
+Kolkata Greater,East India,22.5726,88.3639,185,165.2,Hong's Kitchen,Metro Market
+Chennai Central,South India,13.0827,80.2707,190,172.6,Domino's India,Metro Market
+Pune Metropolitan,West India,18.5204,73.8567,160,145.8,Dunkin',Urban Growth Center
+Ahmedabad & Gandhinagar,West India,23.0225,72.5714,145,130.4,Domino's India,Urban Growth Center
+Chandigarh Tricity,North India,30.7333,76.7794,95,92.5,Popeyes,Tier-2 Regional
+Jaipur Metropolitan,North India,26.9124,75.7873,85,78.2,Domino's India,Tier-2 Regional
+Lucknow Central,North India,26.8467,80.9462,80,72.8,Domino's India,Tier-2 Regional
+Kochi & Central Kerala,South India,9.9312,76.2673,65,58.4,Domino's India,Tier-2 Regional
+Istanbul Metropolitan,Eurasia (Turkey),41.0082,28.9784,380,210.6,DP Eurasia,International Flagship
+Ankara Capital,Eurasia (Turkey),39.9334,32.8597,140,76.5,DP Eurasia,International Regional
+Izmir Aegean,Eurasia (Turkey),38.4237,27.1428,95,52.4,DP Eurasia,International Regional
+Baku Urban,Eurasia (Azerbaijan),40.4093,49.8671,55,28.6,DP Eurasia,International Gateway
+Tbilisi Metro,Eurasia (Georgia),41.7151,44.8271,35,18.2,DP Eurasia,International Gateway
